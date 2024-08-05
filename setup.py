@@ -28,7 +28,7 @@ class CMakeBuild(build_ext):
         ]
 
         subprocess.run(
-            ["/Users/andreas/.local/pipx/venvs/conan/bin/conan", "install", ext.sourcedir, *conan_args], check=True
+            ["conan", "install", ext.sourcedir, *conan_args], check=True
         )
 
         cmake_args = [
