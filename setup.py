@@ -8,9 +8,9 @@ from setuptools.command.build_ext import build_ext
 
 
 class CMakeExtension(Extension):
-    def __init__(self, name: str, sourcedir: str = "") -> None:
+    def __init__(self, name: str, sourcedir: Path) -> None:
         super().__init__(name, sources=[])
-        self.sourcedir = os.fspath(Path(sourcedir).resolve())
+        self.sourcedir = sourcedir.resolve()
 
 
 class CMakeBuild(build_ext):
@@ -35,17 +35,17 @@ class CMakeBuild(build_ext):
             ], check=True)
 
         conan_args = [
-            f"--output-folder={build_temp}",
+            f"--output-folder={str(build_temp)}",
             "--build=missing",
             "-s",
             "build_type=Release",
         ]
 
-        subprocess.run(["conan", "install", ext.sourcedir, *conan_args], check=True)
+        subprocess.run(["conan", "install", str(ext.sourcedir), *conan_args], check=True)
 
         cmake_args = [
             f"-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake",
-            f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir}{os.sep}",
+            f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={str(extdir)}{os.sep}",
             f"-DPYTHON_EXECUTABLE={sys.executable}",
             f"-DCMAKE_BUILD_TYPE=Release",
         ]
@@ -53,9 +53,9 @@ class CMakeBuild(build_ext):
         build_args = []
 
         subprocess.run(
-            ["cmake", "-S", ext.sourcedir, "-B", build_temp, *cmake_args], check=True
+            ["cmake", "-S", str(ext.sourcedir), "-B", str(build_temp), *cmake_args], check=True
         )
-        subprocess.run(["cmake", "--build", build_temp, *build_args], check=True)
+        subprocess.run(["cmake", "--build", str(build_temp), *build_args], check=True)
 
 
 setup(
@@ -65,7 +65,7 @@ setup(
     author_email="stefl.andreas@gmail.com",
     description="It's Android's first OpenOffice Document Reader for Python!",
     long_description="",
-    ext_modules=[CMakeExtension("pyodr", "src/cpp")],
+    ext_modules=[CMakeExtension("pyodr", Path("src/cpp"))],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
     install_requires=[],
