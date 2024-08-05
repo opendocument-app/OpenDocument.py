@@ -21,6 +21,8 @@ class CMakeBuild(build_ext):
         build_temp = Path(self.build_temp) / ext.name
         build_temp.mkdir(parents=True, exist_ok=True)
 
+        subprocess.run(["conan", "profile", "detect", "-e"], check=True)
+
         conan_odr_remote = "https://artifactory.opendocument.app/artifactory/api/conan/conan"
 
         result = subprocess.run(["conan", "remote", "list"], check=True, capture_output=True, text=True)
