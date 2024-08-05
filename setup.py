@@ -21,15 +21,27 @@ class CMakeBuild(build_ext):
         build_temp = Path(self.build_temp) / ext.name
         build_temp.mkdir(parents=True, exist_ok=True)
 
+        conan_odr_remote = "https://artifactory.opendocument.app/artifactory/api/conan/conan"
+
+        result = subprocess.run(["conan", "remote", "list"], check=True, capture_output=True, text=True)
+        if conan_odr_remote not in result.stdout:
+            print(f"Adding Conan remote {conan_odr_remote}")
+            subprocess.run([
+                "conan",
+                "remote",
+                "add",
+                "odr",
+                conan_odr_remote,
+            ], check=True)
+
         conan_args = [
             f"--output-folder={build_temp}",
             "--build=missing",
-            "-s", "build_type=Release",
+            "-s",
+            "build_type=Release",
         ]
 
-        subprocess.run(
-            ["conan", "install", ext.sourcedir, *conan_args], check=True
-        )
+        subprocess.run(["conan", "install", ext.sourcedir, *conan_args], check=True)
 
         cmake_args = [
             f"-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake",
@@ -43,9 +55,7 @@ class CMakeBuild(build_ext):
         subprocess.run(
             ["cmake", "-S", ext.sourcedir, "-B", build_temp, *cmake_args], check=True
         )
-        subprocess.run(
-            ["cmake", "--build", build_temp, *build_args], check=True
-        )
+        subprocess.run(["cmake", "--build", build_temp, *build_args], check=True)
 
 
 setup(
