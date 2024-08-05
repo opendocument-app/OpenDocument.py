@@ -1,0 +1,10 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "../../../../../../var/folders/44/dm0p2bkj6_gb2nnj2lg2pyph0000gn/T/tmp28rzux6t.build-temp/pybind/CMakePresets.json",
+        "../../../../../../var/folders/44/dm0p2bkj6_gb2nnj2lg2pyph0000gn/T/tmpm5jfqij4.build-temp/pyodr/CMakePresets.json"
+    ]
+}
