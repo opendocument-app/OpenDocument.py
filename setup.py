@@ -53,11 +53,15 @@ setup(
     version="0.0.1",
     author="Andreas Stefl",
     author_email="stefl.andreas@gmail.com",
-    description="C++ library that translates office documents to HTML",
+    description="It's Android's first OpenOffice Document Reader for Python!",
     long_description="",
     ext_modules=[CMakeExtension("pyodr", "src/cpp")],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
-    extras_require={"test": ["pytest>=6.0"]},
+    install_requires=[],
+    extras_require={
+        "dev": ["black"],
+        "test": ["pytest>=6.0"],
+    },
     python_requires=">=3.7",
 )
