@@ -50,7 +50,10 @@ class CMakeBuild(build_ext):
             f"-DCMAKE_BUILD_TYPE=Release",
         ]
 
-        build_args = []
+        build_args = [
+            "--config",
+            "Release",
+        ]
 
         subprocess.run(
             ["cmake", "-S", str(ext.sourcedir), "-B", str(build_temp), *cmake_args], check=True
