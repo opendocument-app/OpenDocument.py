@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(odrcore REQUIRED)
 find_package(pybind11 REQUIRED)
 
-pybind11_add_module(pyodr pyodr.cpp)
+pybind11_add_module(pyodr src/cpp/pyodr.cpp)
 target_link_libraries(pyodr PRIVATE odrcore::odrcore)
 
 install(

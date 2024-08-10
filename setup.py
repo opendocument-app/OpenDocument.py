@@ -1,5 +1,9 @@
 from skbuild_conan import setup
 from setuptools import find_packages
+import subprocess
+
+
+subprocess.run(["conan", "remote", "add", "--index", "0", "odr", "https://artifactory.opendocument.app/artifactory/api/conan/conan"])
 
 
 setup(
@@ -18,6 +22,5 @@ setup(
         "dev": ["black"],
         "test": ["pytest>=6.0"],
     },
-    conanfile="src/cpp/conanfile.txt",
     conan_profile_settings={"compiler.cppstd": "20"},
 )
