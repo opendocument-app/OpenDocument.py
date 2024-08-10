@@ -60,7 +60,7 @@ class CMakeBuild(build_ext):
             check=True,
         )
 
-    def cmake_configure(self, source_dir: Path, build_dir: Path, ext_dir: Path) -> None:
+    def cmake_configure(self, source_dir: Path, build_dir: Path, install_dir: Path) -> None:
         subprocess.run(
             [
                 "cmake",
@@ -68,10 +68,11 @@ class CMakeBuild(build_ext):
                 str(source_dir),
                 "-B",
                 str(build_dir),
-                f"-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake",
-                f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={str(ext_dir)}{os.sep}",
+                "-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake",
+                f"-DCMAKE_INSTALL_PREFIX={str(install_dir)}",
+                f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={str(install_dir)}",
+                "-DCMAKE_BUILD_TYPE=Release",
                 f"-DPYTHON_EXECUTABLE={sys.executable}",
-                f"-DCMAKE_BUILD_TYPE=Release",
             ],
             check=True,
         )
@@ -103,19 +104,26 @@ class CMakeBuild(build_ext):
     def build_extension(self, ext: CMakeExtension) -> None:
         source_dir = Path(ext.source_dir)
 
-        ext_fullpath = Path.cwd() / self.get_ext_fullpath(ext.name)
-        ext_dir = ext_fullpath.parent.resolve()
-
         build_temp = Path(self.build_temp) / ext.name
         build_temp.mkdir(parents=True, exist_ok=True)
+
+        ext_fullpath = Path(self.get_ext_fullpath(ext.name))
+        install_dir = ext_fullpath.parent
 
         self.conan_profile()
         self.conan_remote()
         self.conan_install(source_dir, build_temp)
 
-        self.cmake_configure(source_dir, build_temp, ext_dir)
+        self.cmake_configure(source_dir, build_temp, install_dir)
         self.cmake_build(build_temp)
         self.cmake_install(build_temp)
+
+        # list build directory for debugging purposes
+        print(f"Build directory: {build_temp}")
+        subprocess.run(["ls", "-la", str(build_temp)], check=True)
+
+        print(f"Install directory: {install_dir}")
+        subprocess.run(["ls", "-la", str(install_dir)], check=True)
 
 
 setup(

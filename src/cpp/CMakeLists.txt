@@ -10,3 +10,8 @@ find_package(pybind11 REQUIRED)
 
 pybind11_add_module(pyodr pyodr.cpp)
 target_link_libraries(pyodr PRIVATE odrcore::odrcore)
+
+install(
+    TARGETS pyodr
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
