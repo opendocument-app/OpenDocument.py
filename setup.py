@@ -19,4 +19,5 @@ setup(
         "test": ["pytest>=6.0"],
     },
     conanfile="src/cpp/conanfile.txt",
+    conan_profile_settings={"compiler.cppstd": "20"},
 )
