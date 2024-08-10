@@ -15,6 +15,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
+    - name: Add requirements
+      run: python -m pip install --upgrade pip wheel setuptools conan
+    - name: Setup conan remote
+      run: conan remote add --index 0 odr https://artifactory.opendocument.app/artifactory/api/conan/conan
     - name: Build SDist
       run: pipx run build --sdist
     - name: Check metadata
@@ -39,6 +43,7 @@ jobs:
         CIBW_ARCHS_MACOS: auto universal2
         CIBW_SKIP: "*-win32 *-manylinux_i686"
         CIBW_BEFORE_BUILD: "pip install conan && conan remote add --index 0 odr https://artifactory.opendocument.app/artifactory/api/conan/conan"
+        CIBW_BUILD_VERBOSITY: 1
     - name: Verify clean directory
       run: git diff --exit-code
       shell: bash
