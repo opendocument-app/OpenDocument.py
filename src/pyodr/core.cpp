@@ -2,6 +2,6 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(pyodr, m) {
+PYBIND11_MODULE(core, m) {
     m.attr("__version__") = "dev";
 }

@@ -3,7 +3,20 @@ from setuptools import find_packages
 import subprocess
 
 
-subprocess.run(["conan", "remote", "add", "--index", "0", "odr", "https://artifactory.opendocument.app/artifactory/api/conan/conan"])
+conan_odr_remote = "https://artifactory.opendocument.app/artifactory/api/conan/conan"
+result = subprocess.run(["conan", "remote", "list"], check=True, capture_output=True, text=True)
+if conan_odr_remote not in result.stdout:
+    print(f"Adding Conan remote {conan_odr_remote}")
+    subprocess.run(
+        [
+            "conan",
+            "remote",
+            "add",
+            "odr",
+            conan_odr_remote,
+        ],
+        check=True,
+    )
 
 
 setup(
