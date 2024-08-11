@@ -24,7 +24,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="pyodr",
-    version="0.0.1",
+    version="0.0.2",
     author="Andreas Stefl",
     author_email="stefl.andreas@gmail.com",
     description="It's Android's first OpenOffice Document Reader for Python!",
