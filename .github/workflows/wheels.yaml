@@ -53,6 +53,8 @@ jobs:
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-24.04
     if: github.event_name == 'release' && github.event.action == 'published'
+    permissions:
+      id-token: write
     steps:
     - uses: actions/setup-python@v5
       with:
@@ -63,5 +65,3 @@ jobs:
         path: dist
         merge-multiple: true
     - uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        password: ${{ secrets.PYPI_TOKEN }}
