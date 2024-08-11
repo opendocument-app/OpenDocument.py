@@ -36,4 +36,7 @@ setup(
         "test": ["pytest>=6.0"],
     },
     conan_profile_settings={"compiler.cppstd": "20"},
+    entry_points = {
+        "console_scripts": ["pyodr=pyodr.cli:main"],
+    },
 )

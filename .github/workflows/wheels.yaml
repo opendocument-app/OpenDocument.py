@@ -37,7 +37,7 @@ jobs:
       env:
         MACOSX_DEPLOYMENT_TARGET: 10.15
         CIBW_ARCHS_MACOS: auto universal2
-        CIBW_SKIP: "*-win32 *-manylinux_i686"
+        CIBW_SKIP: "*-win32 *-manylinux_i686 cp312-win_amd64 cp37-musllinux_x86_64"
         CIBW_BUILD_VERBOSITY: 1
     - name: Verify clean directory
       run: git diff --exit-code
