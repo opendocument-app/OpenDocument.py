@@ -28,7 +28,7 @@ setup(
     author="Andreas Stefl",
     author_email="stefl.andreas@gmail.com",
     description="It's Android's first OpenOffice Document Reader for Python!",
-    long_description="",
+    long_description=long_description,
     long_description_content_type="text/markdown",
     python_requires=">=3.7",
     cmake_minimum_required_version="3.12",
