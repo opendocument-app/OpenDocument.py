@@ -35,6 +35,6 @@ def main(args: Sequence[str] | None = None) -> int:
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     error = main()
     sys.exit(error)
