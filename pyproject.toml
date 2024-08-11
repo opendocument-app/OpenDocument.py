@@ -1,3 +1,28 @@
+[project]
+name = "pyodr"
+version = "0.0.2"
+description = "Fundamental package for array computing in Python"
+classifiers = []
+authors = [
+    {name = "Andreas Stefl"},
+]
+maintainers = [
+    {name = "Andreas Stefl", email="stefl.andreas@gmail.com"},
+]
+requires-python = ">=3.7"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+
+[project.scripts]
+pyodr = "pyodr.cli:main"
+
+[project.urls]
+homepage = "https://opendocument.app/"
+source = "https://github.com/opendocument-app/OpenDocument.py"
+download = "https://pypi.org/project/pyodr/#files"
+tracker = "https://github.com/opendocument-app/OpenDocument.py/issues"
+"release notes" = "https://github.com/opendocument-app/OpenDocument.py/releases"
+
 [build-system]
 requires = [
     "setuptools>=42",
