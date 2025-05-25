@@ -16,5 +16,5 @@ jobs:
       with:
         python-version: "3.x"
     - run: pip install black
-    - run: black src/pyodr
+    - run: black src
     - run: git diff --exit-code
