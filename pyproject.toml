@@ -1,7 +1,7 @@
 [project]
 name = "pyodr"
 version = "0.0.2"
-description = "Fundamental package for array computing in Python"
+description = "It's Android's first OpenOffice Document Reader for Python!"
 classifiers = []
 authors = [
     {name = "Andreas Stefl"},
