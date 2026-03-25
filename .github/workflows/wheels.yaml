@@ -33,7 +33,7 @@ jobs:
         os: [ubuntu-22.04, macos-13]
     steps:
     - uses: actions/checkout@v4
-    - uses: pypa/cibuildwheel@v2.17
+    - uses: pypa/cibuildwheel@v2.23
       env:
         MACOSX_DEPLOYMENT_TARGET: 10.15
         CIBW_ARCHS_MACOS: auto universal2
