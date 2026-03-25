@@ -14,7 +14,7 @@ jobs:
     name: Build SDist
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Build SDist
       run: pipx run build --sdist
     - name: Check metadata
@@ -32,7 +32,7 @@ jobs:
       matrix:
         os: [ubuntu-22.04, macos-13]
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: pypa/cibuildwheel@v2.17
       env:
         MACOSX_DEPLOYMENT_TARGET: 10.15
