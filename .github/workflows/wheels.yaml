@@ -19,7 +19,7 @@ jobs:
       run: pipx run build --sdist
     - name: Check metadata
       run: pipx run twine check dist/*
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: cibw-sdist
         path: dist/*.tar.gz
@@ -43,7 +43,7 @@ jobs:
       run: git diff --exit-code
       shell: bash
     - name: Upload wheels
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: cibw-wheels-${{ matrix.os }}
         path: wheelhouse/*.whl
@@ -59,7 +59,7 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: "3.x"
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v8
       with:
         pattern: cibw-*
         path: dist
